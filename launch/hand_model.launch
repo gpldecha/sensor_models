@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+   <!-- launch optitrack-->
+   <include file="$(find optitrack)/launch/optitrack.launch" />
+
+   <!-- Hand urdf -->
+   <param name="robot_description" command="$(find xacro)/xacro.py '$(find sensor_models)/urdf/human_hand.xacro'" />
+   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+	<rosparam param="source_list">["hand_model/joint_states"]</rosparam>
+   </node>
+
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+	<rosparam param="publish_frequency">100</rosparam>
+   </node>
+
+   <!--node name="hand_broadcaster" pkg="tf" type="static_transform_publisher" args="0 0 1 0 0 0 1 world hand_link 100" /-->
+	
+   <!--node name="big_table_broadcaster" type="table_broadcaster" pkg="table_broadcaster" args="-fixed_frame world -target_frame_vision hand_root -target_frame_rviz hand_link -origin 1 1 0 -rate 100" output="screen"/--> 		
+
+
+   <!-- hand model -->
+   <node name="hand_model" pkg="sensor_models" type="hand_node" args="-fixed_frame world -target_frame_vision hand_root -target_frame_rviz hand_link" output="screen"/>
+
+   <!-- Rviz -->
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find sensor_models)/launch/rviz/hand_model.rviz" required="true" />
+
+</launch>

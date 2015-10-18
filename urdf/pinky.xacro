@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<!--PINKY -->
+
+
+ <xacro:property name="p1_l" value="${3.389 * 0.01}"/>
+ <xacro:property name="p2_l" value="${2.396 * 0.01}"/>
+ <xacro:property name="p3_l" value="${2.542 * 0.01}"/>
+
+<xacro:property name="pdof0_xyz"  value="0.082146 -0.047768  0"/>
+<xacro:property name="pdof0_rpy"  value="0 0 0"/>
+
+<xacro:property  name="pdof1_xyz" value="0 0 0"/>
+<xacro:property  name="pdof1_rpy"  value="0 0 0"/>
+ 
+<xacro:property  name="pdof2_xyz" value="${p1_l} 0 0"/>
+ <xacro:property name="pdof2_rpy" value="0 0 0"/>
+
+ <xacro:property name="pdof3_xyz" value="${p2_l} 0 0"/>
+ <xacro:property name="pdof3_rpy" value="0 0 0"/>
+
+ <xacro:property name="pdof4_xyz" value="${p3_l} 0 0"/>
+ <xacro:property name="pdof4_rpy" value="0 0 0"/>
+
+
+<xacro:macro name="ahand_pinky">
+
+ 	<xacro:joint_revolute       prefix="pinky_dof0" parent="ahand_palm_link" xyz="${pdof0_xyz}" rpy="${pdof0_rpy}"  lower="-0.13963" upper="0.05236"	axis="0 0 1"/>
+ 	<xacro:joint_revolute_tube  prefix="pinky_dof1" parent="pinky_dof0_link" xyz="${pdof1_xyz}" rpy="${pdof1_rpy}"  lower="-0.13963" upper="0.05236"	axis="0 -1 0" length="${p1_l}"/>
+ 	<xacro:joint_revolute_tube  prefix="pinky_dof2" parent="pinky_dof1_link" xyz="${pdof2_xyz}" rpy="${pdof2_rpy}"  lower="-1.5708"  upper="0.0" 		axis="0 -1 0" length="${p2_l}"/>
+ 	<xacro:joint_revolute  	    prefix="pinky_dof3" parent="pinky_dof2_link" xyz="${pdof3_xyz}" rpy="${pdof3_rpy}"  lower="-1.7453"  upper="0.0" 		axis="0 -1 0" />
+	<xacro:joint_revolute       prefix="pinky_dof4" parent="pinky_dof3_link" xyz="0 0 0"   	    rpy="0 0 0" 	lower="-0.001"   upper="0.001" 		axis="0 1 0" />
+ 	<xacro:joint_revolute_tube  prefix="pinky_dof5" parent="pinky_dof4_link" xyz="0 0 0"   	    rpy="0 0 0" 	lower="-0.001"   upper="0.001" 		axis="0 1 0" length="${p3_l}"/>
+ 	<xacro:joint_fixed  	    prefix="pinky_dof6" parent="pinky_dof5_link" xyz="${pdof4_xyz}" rpy="${pdof4_rpy}"/>
+
+</xacro:macro> 
+</robot>
+

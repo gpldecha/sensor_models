@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<!--THUMB -->
+
+<!--
+thumb{2} = struct('theta','q2','d',0.1627,  'a', 4.565 ,'alpha', 1.571,     'offset',-0.5527,    'jl',[ -0.8203 0.5236]);     
+thumb{3} = struct('theta','q3','d',0,       'a', 0 ,    'alpha', 1.571,     'offset',1.5708,     'jl',[-1.5708       0]);
+thumb{4} = struct('theta','q4','d',2.757,   'a', 0 ,    'alpha',-1.571,     'offset',0,          'jl',[-1.5708 0.34907]);
+thumb{5} = struct('theta','q5','d',0,       'a', 2.678 ,'alpha',     0,     'offset',-1.5708,    'jl',[-1.5708 0.43633]);
+-->
+ <xacro:property name="t1_l" value="${4.565 * 0.01}"/>
+ <xacro:property name="t2_l" value="${2.678 * 0.01}"/>
+
+<xacro:property  name="tdof0_xyz"   value="0.032476 0.028433  0"/>
+<xacro:property  name="tdof0_rpy"   value="-0.0143 0 ${PI/3}"/>
+
+<xacro:property  name="tdof1_xyz"   value="0 0 0"/>
+<xacro:property  name="tdof1_rpy"   value="0 0 0"/>
+
+<xacro:property  name="tdof2_xyz"   value="${t1_l} 0 0"/>
+<xacro:property  name="tdof2_rpy"   value="0 0 0"/>
+
+<xacro:property  name="tdof3_xyz"   value="${t2_l} 0 0"/>
+<xacro:property  name="tdof3_rpy"   value="0 0 0"/>
+
+<xacro:property  name="tdof4_xyz"   value="0 0 0"/>
+<xacro:property  name="tdof4_rpy"   value="0 0 0"/>
+
+<!--DOF 1 THUMB-->
+<xacro:macro name="ahand_thumb">
+
+
+ 	<xacro:joint_revolute      prefix="thumb_dof0" parent="ahand_palm_link" xyz="${tdof0_xyz}" rpy="${tdof0_rpy}" lower="-1.7453" upper="0.69813" 	axis="0 0 1"/>
+ 	<xacro:joint_revolute_tube prefix="thumb_dof1" parent="thumb_dof0_link" xyz="${tdof1_xyz}" rpy="${tdof1_rpy}" lower="-0.8203" upper="0.5236" 	axis="0 -1 0" length="${t1_l}"/>
+ 	<xacro:joint_revolute_tube prefix="thumb_dof2" parent="thumb_dof1_link" xyz="${tdof2_xyz}" rpy="${tdof2_rpy}" lower="-1.5708" upper="0.0" 	axis="0 -1 0" length="${t2_l}"/>
+ 	<xacro:joint_revolute      prefix="thumb_dof3" parent="thumb_dof2_link" xyz="${tdof3_xyz}" rpy="${tdof3_rpy}" lower="-1.5708" upper="0.34907" 	axis="0 -1 0" />
+ 	<!--xacro:joint_fixed    	   prefix="thumb_dof4" parent="thumb_dof3_link" xyz="${tdof4_xyz}" rpy="${tdof4_rpy}"/-->
+
+</xacro:macro>
+</robot>
+
+

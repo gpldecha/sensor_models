@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+<xacro:macro name="finger">
+
+
+	<!-- JOINT 1 -->
+	<joint name="middle_dof1_joint" type="revolute">
+      		<parent link="middle_dof0_link"/>
+      		<child link="middle_dof1_link"/>
+		<origin xyz="0 0 0" rpy="${-PI/2} 0 0"/>
+      		
+		<axis xyz="0 0 1"/>
+      		<limit lower="${-11.229973*PI/180.0}" upper="${92.246205*PI/180.0}" effort="100" velocity="100"/>
+    	</joint>
+
+	<!-- LINK 1 -->
+    	<link name="middle_dof1_link">
+      		<visual>
+        		<material name="WAMGrey">
+          			<color rgba="0.9 0.9 0.9 1.0"/>
+        		</material>
+
+        		<origin xyz="0 ${-m1_l/2} 0" rpy="${PI/2} 0 0" /> 
+        		<geometry>
+		  		<cylinder length="${m1_l}" radius="0.02"/>
+        		</geometry>
+      		</visual>
+    	</link>
+
+</xacro:macro> 
+
+</robot>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<!--INDEX -->
+
+ <xacro:property name="i1_l" value="${4.7940 * 0.01}"/>
+ <xacro:property name="i2_l" value="${2.827 * 0.01}"/>
+ <xacro:property name="i3_l" value="${2.612 * 0.01}"/>
+
+ <xacro:property name="i_w" value="0.001"/>
+
+<xacro:property name="dof0_xyz"   value="0.0934 0.02957  0"/>
+<xacro:property name="dof0_rpy"   value="0 0 0"/>
+
+<xacro:property  name="dof1_xyz" value="0 0 0"/>
+<xacro:property name="dof1_rpy"  value="0 0 0"/>
+ 
+<xacro:property  name="dof2_xyz" value="${i1_l} 0 0"/>
+ <xacro:property name="dof2_rpy" value="0 0 0"/>
+
+ <xacro:property name="dof3_xyz" value="${i2_l} 0 0"/>
+ <xacro:property name="dof3_rpy" value="0 0 0"/>
+
+ <xacro:property name="dof4_xyz" value="${i3_l} 0 0"/>
+ <xacro:property name="dof4_rpy" value="0 0 0"/>
+
+<xacro:macro name="ahand_index">
+	
+
+ 	<xacro:joint_revolute       prefix="index_dof0" parent="ahand_palm_link" xyz="${dof0_xyz}" rpy="${dof0_rpy}" lower="-0.13963" upper="0.05236" 	axis="0 0 1"/>
+ 	<xacro:joint_revolute_tube  prefix="index_dof1" parent="index_dof0_link" xyz="${dof1_xyz}" rpy="${dof1_rpy}" lower="-0.13963" upper="0.05236" 	axis="0 -1 0" length="${i1_l}"/>
+ 	<xacro:joint_revolute_tube  prefix="index_dof2" parent="index_dof1_link" xyz="${dof2_xyz}" rpy="${dof2_rpy}" lower="-1.5708"  upper="0.0" 	axis="0 -1 0" length="${i2_l}"/>
+ 	<xacro:joint_revolute_tube  prefix="index_dof3" parent="index_dof2_link" xyz="${dof3_xyz}" rpy="${dof3_rpy}" lower="-1.7453"  upper="0.0" 	axis="0 -1 0" length="${i3_l}"/>
+ 	<xacro:joint_fixed  	    prefix="index_dof4" parent="index_dof3_link" xyz="${dof4_xyz}" rpy="${dof4_rpy}"/>
+
+
+</xacro:macro> 
+</robot>
+

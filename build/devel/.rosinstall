@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/guillaume/roscode/catkin_ws/src/sensor_models/build/devel/setup.sh

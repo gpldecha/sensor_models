@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot name="human_hand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <xacro:property name="b" value="0.02"/> <!-- 0.8 damping // 0.2 ..--> 
+  <xacro:property name="c" value="0.8"/> <!-- friction: not used ... -->
+  <!-- Constants -->
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <xacro:property name="palm_l" value="0.08"/> 
+  <xacro:property name="palm_w" value="0.07"/> 
+  <xacro:property name="finger_w" value="0.01"/> 
+
+
+  <xacro:include filename="$(find sensor_models)/urdf/utils.xacro"/>
+  <xacro:include filename="$(find sensor_models)/urdf/pinky.xacro"/>
+  <xacro:include filename="$(find sensor_models)/urdf/ring.xacro"/>
+  <xacro:include filename="$(find sensor_models)/urdf/middle.xacro"/>
+  <xacro:include filename="$(find sensor_models)/urdf/index.xacro"/>
+  <xacro:include filename="$(find sensor_models)/urdf/thumb.xacro"/>
+
+
+  <!-- High-leveel hand macro -->
+  <xacro:macro name="human_hand" params="parent_link xyz rpy left">
+    
+    <link name= "hand_link" type="fixed"/>
+
+    <xacro:ahand_palm parent_link="hand_link" xyz="${xyz}" rpy="${rpy}" left="${left}"/>
+    <xacro:ahand_index/>
+    <xacro:ahand_middle/>
+    <xacro:ahand_ring/>
+    <xacro:ahand_pinky/>
+    <xacro:ahand_thumb/>
+  </xacro:macro>
+
+
+<!-- Components PALM  -->
+<xacro:macro name="ahand_palm" params="parent_link xyz rpy left">
+	<joint name="ahand_base_joint" type="fixed">
+	     <parent link="${parent_link}"/>	
+ 	     <child link="ahand_palm_link"/>
+      	     <origin xyz="${xyz}" rpy="${rpy}"/>	
+    	</joint>
+
+	<link name="ahand_palm_link">
+	      <visual>
+			<origin xyz="0.04 -0.01 0" rpy="0 0 0"/>
+	        	<material name="all">
+	          		<color rgba="0.9 0.9 0.9 0.5"/>
+	       		</material>
+        		<geometry>
+   				<box size="${palm_l} ${palm_w} .02"/>
+      			</geometry>
+	    	</visual>
+	</link> 
+</xacro:macro>
+
+
+
+</robot>

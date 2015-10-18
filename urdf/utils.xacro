@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<xacro:macro name="joint_revolute" params="prefix parent xyz rpy lower upper axis">
+	<joint name="${prefix}_joint" type="revolute">
+		<origin xyz="${xyz}" rpy="${rpy}"/>
+		<parent link="${parent}"/>
+      		<child link="${prefix}_link"/>
+     		<limit lower="${lower}" upper="${upper}" effort="100" velocity="100"/>   
+		<axis xyz="${axis}"/> 
+    	</joint>
+
+	<link name="${prefix}_link">
+		<visual>
+        		<origin xyz="0 0 0" rpy="${0} ${0} ${0} "/>      
+        		<material name="Grey">
+        			<color rgba="0.9 0.9 0.9 0.5"/>
+        		</material>
+        		<geometry>
+				<sphere xyz="0 0 0" radius="0.004" />
+        		</geometry>
+		</visual>
+	</link>
+
+</xacro:macro>
+
+<xacro:macro name="joint_revolute_tube" params="prefix parent xyz rpy lower upper axis length" >
+	<joint name="${prefix}_joint" type="revolute">
+		<origin xyz="${xyz}" rpy="${rpy}"/>
+		<parent link="${parent}"/>
+      		<child link="${prefix}_link"/>
+     		<limit lower="${lower}" upper="${upper}" effort="100" velocity="100"/>   
+		<axis xyz="${axis}"/> 
+    	</joint>
+
+	<link name="${prefix}_link">
+		<visual>
+        		<origin xyz="0 0 0" rpy="${0} ${0} ${0} "/>      
+        		<material name="Grey">
+        			<color rgba="0.9 0.9 0.9 0.5"/>
+        		</material>
+        		<geometry>
+				<sphere xyz="0 0 0" radius="0.004" />
+        		</geometry>
+		</visual>
+      		<visual>
+        		<origin xyz="${length/2} 0 0" rpy="${0} ${PI/2} ${0} "/>      
+        		<material name="Grey">
+        			<color rgba="0.9 0.9 0.9 0.5"/>
+        		</material>
+        		<geometry>
+				<cylinder length="${length}" radius="0.002" />
+        		</geometry>
+      		</visual>
+	</link>
+</xacro:macro>
+
+
+<xacro:macro name="joint_fixed" params="prefix parent xyz rpy" >
+	<joint name="${prefix}_joint" type="fixed">
+		<origin xyz="${xyz}" rpy="${rpy}"/>
+		<parent link="${parent}"/>
+      		<child link="${prefix}_link"/> 
+    	</joint>
+
+	<link name="${prefix}_link">
+		<visual>
+        		<origin xyz="0 0 0" rpy="${0} ${0} ${0} "/>      
+        		<material name="Grey">
+        			<color rgba="0.9 0.9 0.9 0.5"/>
+        		</material>
+        		<geometry>
+				<sphere xyz="0 0 0" radius="0.004" />
+        		</geometry>
+		</visual>
+	</link>
+</xacro:macro>
+
+</robot>
